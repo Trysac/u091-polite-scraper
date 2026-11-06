@@ -10,11 +10,10 @@ uv run python scripts/check.py      # every gate, as CI and the factory run it
 ## Policy
 
 - Branch coverage of `src/polite_scraper` must stay at or above 80 %; the gate fails below it.
-- Tests exercise the public API (`import polite_scraper`) and assert every observable effect:
-  return values, raised exceptions and their messages.
-- Each bug fix starts with a failing test that reproduces it.
-- Tests are deterministic: no network, no wall clock, no dependence on test order.
+- The default urllib transport is excluded from coverage (`# pragma: no cover`) because tests never touch the network.
+- Tests exercise the public API (`import polite_scraper`) and assert observable effects: return values, raised exceptions and their codes.
+- Tests are deterministic: they use `FakeTransport` and `FakeClock`, with no network, no wall clock and no dependence on test order.
 
 ## Layout
 
-`tests/test_<module>.py` mirrors each public module. Shared fixtures go in `tests/conftest.py`.
+`tests/test_polite_scraper.py` covers the public API: robots.txt parsing and matching, host and URL guards, redirects, size and content-type limits, pacing and Crawl-Delay, the conditional cache with LRU eviction, and `extract_text`. Test doubles live in `src/polite_scraper/testing.py`.
