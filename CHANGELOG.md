@@ -9,4 +9,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Add `polite_scraper`: robots.txt (RFC 9309) aware, paced, conditionally cached fetching with SSRF guards, size limits and `extract_text`.
 - Initial project structure from the factory utility template.
